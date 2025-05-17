@@ -1,6 +1,8 @@
-# menu.py
-from controller import MenuController
+# app/menu.py
+from app.controller import MenuController
 from rich.console import Console
+# ... resto igual
+
 
 console = Console()
 
