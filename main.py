@@ -104,27 +104,29 @@ def banner(console):
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # Cores definidas
-    cor_borda = Style(color="rgb(255,0,0)")              # VERMELHO
+    cor_borda = Style(color="rgb(0,0,225)")              # azul
     cor_logo  = Style(color="rgb(0,191,255)", bold=True) # AZUL NEON (BH VENDAS)
     cor_texto = Style(color="rgb(211,211,211)")          # CINZA CLARO
+    cor_texto2 = style(color="rgb(0,191,0)")             # VERDE NEON 
+    cor_estrelas = style(color="rgb(0,255,255)")         # AMARELO
 
     # Banner linhas
     banner_lines = [
-        "┌───────────────────────────────────────────────────────┐",
-        "│                                                       │",
-        "│                    ██████╗ ██╗  ██╗                   │", 
-        "│                    ██╔══██╗██║  ██║                   │",
-        "│                    ██████╔╝███████║                   │",
-        "│                    ██╔══██╗██╔══██║                   │",
-        "│                    ██████╔╝██║  ██║                   │",
-        "│                    ╚═════╝ ╚═╝  ╚═╝                   │", 
+        "┌───────────────┬────────────────────────┬──────────────┐",
+        "│  ✯     ✯      ✯     ✯     ✯    ✯          ✯     ✯ │",
+        "│     ✯        ✯    ██████╗ ██╗  ██╗  ✯           ✯   │", 
+        "│   ✯     ✯         ██╔══██╗██║  ██║     ✯     ✯      │",
+        "│        ✯     ✯    ██████╔╝███████║    ✯        ✯    │",
+        "│     ✯          ✯  ██╔══██╗██╔══██║  ✯       ✯       │",
+        "├  ✯          ✯     ██████╔╝██║  ██║       ✯      ✯   ┤",
+        "│      ✯    ✯       ╚═════╝ ╚═╝  ╚═╝     ✯      ✯     │", 
         "│  ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗  │",
         "│  ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝  │",
         "│  ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗  │",
         "│  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║  │",
         "│   ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║  │",
         "│    ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝  │",     
-        "│                                                       │",
+        "│   ✯           ✯      ✯     ✯       ✯       ✯       │",
         "├───────────────────────────────────────────────────────┤",
         "│DESLOGUE DA CONTA CPM ANTES DE USAR ESTA FERRAMENTA    │",
         "├───────────────────────────────────────────────────────┤",
@@ -138,6 +140,7 @@ def banner(console):
 
     # Símbolos que serão pintados de vermelho
     simbolos_borda = "│─┘└┐┌┤├┬┴"
+    estelas = "✯"
 
     # Render linha por linha
     for line in banner_lines:
@@ -145,6 +148,8 @@ def banner(console):
         for char in line:
             if char in simbolos_borda:
                 styled_line.append(char, style=cor_borda)
+            if char in estrelas:
+                styled_line.append(char, style=cor_estrelas)    
             elif "█" in char:
                 styled_line.append(char, style=cor_logo)
             else:
