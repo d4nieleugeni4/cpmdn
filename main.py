@@ -107,8 +107,8 @@ def banner(console):
     cor_borda = Style(color="rgb(0,0,225)")              # azul
     cor_logo  = Style(color="rgb(0,191,255)", bold=True) # AZUL NEON (BH VENDAS)
     cor_texto = Style(color="rgb(211,211,211)")          # CINZA CLARO
-    cor_texto2 = style(color="rgb(0,191,0)")             # VERDE NEON 
-    cor_estrelas = style(color="rgb(0,255,255)")         # AMARELO
+    cor_texto2 = Style(color="rgb(0,191,0)")             # VERDE NEON 
+    cor_estrelas = Style(color="rgb(0,255,255)")         # AMARELO
 
     # Banner linhas
     banner_lines = [
