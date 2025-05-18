@@ -101,56 +101,55 @@ def rainbow_gradient_string(customer_name):
 # Funções de Interface do Usuário
 # ========================================
 def banner(console):
-    """Exibe o banner colorido da ferramenta"""
+    """Exibe o banner colorido da ferramenta com cores separadas"""
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    # Texto principal do banner
-    brand_name = """
-┌───────────────────────────────────────────────────────┐
-│                                                       │
-│                    ██████╗ ██╗  ██╗                   │ 
-│                    ██╔══██╗██║  ██║                   │
-│                    ██████╔╝███████║                   │
-│                    ██╔══██╗██╔══██║                   │
-│                    ██████╔╝██║  ██║                   │
-│                    ╚═════╝ ╚═╝  ╚═╝                   │ 
-│  ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗  │
-│  ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝  │
-│  ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗  │
-│  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║  │
-│   ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║  │
-│    ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝  │     
-│                                                       │
-├───────────────────────────────────────────────────────┤
-│DESLOGUE DA CONTA CPM ANTES DE USAR ESTA FERRAMENTA    │
-├───────────────────────────────────────────────────────┤
-│PARA COMPRA UMA KEY ENTRE EM CONTATO PELO TELEGRAM:    │
-│                                                       │
-├──────────────────────────┬────────────────────────────┤
-│INSTAGRAM: @bh_vendas     │É PROIBIDO REVENDER SUA KEY │
-│WHATSAPP: 67 99187-0782   │DE ACESSO OU O SCRIPT       │
-└──────────────────────────┴────────────────────────────┘  
-"""
-    
-    # Lista de cores para o efeito gradiente
-    colors = [
-    "rgb(220,220,220)", "rgb(200,200,200)", "rgb(180,180,180)",
-    "rgb(160,160,160)", "rgb(140,140,140)", "rgb(120,120,120)",
-    "rgb(100,100,100)", "rgb(80,80,80)", "rgb(60,60,60)"
-]
+
+    banner_lines = [
+        "┌───────────────────────────────────────────────────────┐",
+        "│                                                       │",
+        "│                    ██████╗ ██╗  ██╗                   │", 
+        "│                    ██╔══██╗██║  ██║                   │",
+        "│                    ██████╔╝███████║                   │",
+        "│                    ██╔══██╗██╔══██║                   │",
+        "│                    ██████╔╝██║  ██║                   │",
+        "│                    ╚═════╝ ╚═╝  ╚═╝                   │", 
+        "│  ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗  │",
+        "│  ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝  │",
+        "│  ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗  │",
+        "│  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║  │",
+        "│   ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║  │",
+        "│    ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝  │",     
+        "│                                                       │",
+        "├───────────────────────────────────────────────────────┤",
+        "│DESLOGUE DA CONTA CPM ANTES DE USAR ESTA FERRAMENTA    │",
+        "├───────────────────────────────────────────────────────┤",
+        "│PARA COMPRA UMA KEY ENTRE EM CONTATO PELO TELEGRAM:    │",
+        "│                                                       │",
+        "├──────────────────────────┬────────────────────────────┤",
+        "│INSTAGRAM: @bh_vendas     │É PROIBIDO REVENDER SUA KEY │",
+        "│WHATSAPP: 67 99187-0782   │DE ACESSO OU O SCRIPT       │",
+        "└──────────────────────────┴────────────────────────────┘"
+    ]
+
+    # Cores
+    border_color = Style(color="rgb(105,105,105)")
+    title_color = Style(color="rgb(0,191,255)", bold=True)
+    text_color = Style(color="rgb(211,211,211)")
+
+    for line in banner_lines:
+        styled_line = Text()
+        if "BH VENDAS" in line or "██████" in line:
+            # Destacar título
+            styled_line.append(line, style=title_color)
+        elif line.startswith("┌") or line.startswith("└") or line.startswith("├") or line.startswith("│") and line.endswith("│"):
+            # Contorno
+            styled_line.append(line, style=border_color)
+        else:
+            # Texto interno
+            styled_line.append(line, style=text_color)
+        console.print(styled_line)
 
     
-    # Aplica o efeito gradiente
-    colorful_text = gradient_text(brand_name, colors)
-    console.print(colorful_text)
-    
-    # Linhas decorativas e informações de contato
-  #  print(Colorate.Horizontal(Colors.rainbow, '='*70))
-  #  print(Colorate.Horizontal(Colors.rainbow, '\tFAÇA LOGOUT DO CPM ANTES DE USAR ESTA FERRAMENTA'))
-   # print(Colorate.Horizontal(Colors.rainbow, 'COMPARTILHAR A CHAVE DE ACESSO NÃO É PERMITIDO - SERÁ BLOQUEADO'))
-   # print(Colorate.Horizontal(Colors.rainbow, f'INSTAGRAM: @{__CHANNEL_USERNAME__} WHATSAPP: {__GROUP_USERNAME__}'))
-   # print(Colorate.Horizontal(Colors.rainbow, '='*70))
-
 def prompt_valid_value(content, tag, password=False):
     """
     Solicita entrada do usuário com validação
