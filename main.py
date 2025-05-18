@@ -103,30 +103,28 @@ def rainbow_gradient_string(customer_name):
 def banner(console):
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Cores definidas
-    cor_borda = Style(color="rgb(0,0,225)")              # azul
+    # Cores
+    cor_borda = Style(color="rgb(255,0,0)")              # VERMELHO
     cor_logo  = Style(color="rgb(0,191,255)", bold=True) # AZUL NEON (BH VENDAS)
-    cor_texto = Style(color="rgb(211,211,211)")          # CINZA CLARO
-    cor_texto2 = Style(color="rgb(0,191,0)")             # VERDE NEON 
-    cor_estrelas = Style(color="rgb(0,255,255)")         # AMARELO
+    cor_texto = Style(color="rgb(180,200,220)")          # CINZA AZULADO (SUAVE)
 
-    # Banner linhas
+    # Desenho do banner
     banner_lines = [
-        "┌───────────────┬────────────────────────┬──────────────┐",
-        "│  ✯     ✯      ✯     ✯     ✯    ✯          ✯     ✯ │",
-        "│     ✯        ✯    ██████╗ ██╗  ██╗  ✯           ✯   │", 
-        "│   ✯     ✯         ██╔══██╗██║  ██║     ✯     ✯      │",
-        "│        ✯     ✯    ██████╔╝███████║    ✯        ✯    │",
-        "│     ✯          ✯  ██╔══██╗██╔══██║  ✯       ✯       │",
-        "├  ✯          ✯     ██████╔╝██║  ██║       ✯      ✯   ┤",
-        "│      ✯    ✯       ╚═════╝ ╚═╝  ╚═╝     ✯      ✯     │", 
+        "┌───────────────────────────────────────────────────────┐",
+        "│                                                       │",
+        "│                    ██████╗ ██╗  ██╗                   │", 
+        "│                    ██╔══██╗██║  ██║                   │",
+        "│                    ██████╔╝███████║                   │",
+        "│                    ██╔══██╗██╔══██║                   │",
+        "│                    ██████╔╝██║  ██║                   │",
+        "│                    ╚═════╝ ╚═╝  ╚═╝                   │", 
         "│  ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗  │",
         "│  ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝  │",
         "│  ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗  │",
         "│  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║  │",
         "│   ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║  │",
         "│    ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝  │",     
-        "│   ✯           ✯      ✯     ✯       ✯       ✯       │",
+        "│                                                       │",
         "├───────────────────────────────────────────────────────┤",
         "│DESLOGUE DA CONTA CPM ANTES DE USAR ESTA FERRAMENTA    │",
         "├───────────────────────────────────────────────────────┤",
@@ -138,23 +136,21 @@ def banner(console):
         "└──────────────────────────┴────────────────────────────┘"
     ]
 
-    # Símbolos que serão pintados de vermelho
+    # Símbolos que fazem parte da borda
     simbolos_borda = "│─┘└┐┌┤├┬┴"
-    estrelas = "✯"
 
-    # Render linha por linha
+    # Pintando cada caractere conforme sua categoria
     for line in banner_lines:
         styled_line = Text()
         for char in line:
             if char in simbolos_borda:
                 styled_line.append(char, style=cor_borda)
-            if char in estrelas:
-                styled_line.append(char, style=cor_estrelas)    
             elif "█" in char:
                 styled_line.append(char, style=cor_logo)
             else:
                 styled_line.append(char, style=cor_texto)
         console.print(styled_line)
+
 
     
 def prompt_valid_value(content, tag, password=False):
