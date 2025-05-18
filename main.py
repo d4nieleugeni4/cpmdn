@@ -104,11 +104,11 @@ def banner(console):
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # Cores definidas
-    cor_borda = Style(color="rgb(169,169,169)")      # cinza escuro
-    cor_logo  = Style(color="rgb(0,191,255)", bold=True)  # azul neon (para "BH VENDAS")
-    cor_texto = Style(color="rgb(211,211,211)")      # cinza claro
+    cor_borda = Style(color="rgb(255,0,0)")              # VERMELHO
+    cor_logo  = Style(color="rgb(0,191,255)", bold=True) # AZUL NEON (BH VENDAS)
+    cor_texto = Style(color="rgb(211,211,211)")          # CINZA CLARO
 
-    # Bloco completo do banner
+    # Banner linhas
     banner_lines = [
         "┌───────────────────────────────────────────────────────┐",
         "│                                                       │",
@@ -136,11 +136,14 @@ def banner(console):
         "└──────────────────────────┴────────────────────────────┘"
     ]
 
-    # Renderizando linha por linha
+    # Símbolos que serão pintados de vermelho
+    simbolos_borda = "│─┘└┐┌┤├┬┴"
+
+    # Render linha por linha
     for line in banner_lines:
         styled_line = Text()
         for char in line:
-            if char in "┌┐└┘─┬┴├┤┼│":  # caractere de borda
+            if char in simbolos_borda:
                 styled_line.append(char, style=cor_borda)
             elif "█" in char:
                 styled_line.append(char, style=cor_logo)
