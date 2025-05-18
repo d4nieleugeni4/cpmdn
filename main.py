@@ -259,34 +259,63 @@ if __name__ == "__main__":
             
             # Exibe o menu de opções
             choices = [str(i) for i in range(27)]  # 0-26
-            print(Colorate.Horizontal(Colors.rainbow, '{01}: ADICIONAR DINHEIRO (1.000K)'))
-            print(Colorate.Horizontal(Colors.rainbow, '{02}: ADICIONAR GOLDS (3.500K)'))
-            print(Colorate.Horizontal(Colors.rainbow, '{03}: INSERIR RANK KING (4.000K)'))
-            print(Colorate.Horizontal(Colors.rainbow, '{04}: MUDAR ID (3.500K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{05}: MUDAR NOME (100 '))
-            print(Colorate.Horizontal(Colors.rainbow, '{06}: MUDAR NOME ( RGB ) (100'))
-            print(Colorate.Horizontal(Colors.rainbow, '{07}: NUMEROS PLACAS (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{08}: DELETAR CONTA (GRATIS '))
-            print(Colorate.Horizontal(Colors.rainbow, '{09}: REGISTRAR CONTA (GRATIS'))
-            print(Colorate.Horizontal(Colors.rainbow, '{10}: DELETAR AMIGOS (500'))
-            print(Colorate.Horizontal(Colors.rainbow, '{11}: DESBLOQUEAR CARROS PAGOS (4.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{12}: DESBLOQUEAR TODOS CARROS (3.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{13}: SIRENE EM TODOS CARROS (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{14}: DESBLOQUEAR W16 (3.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{15}: DESBLOQUEAR BUZINAS (3.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{16}: MOTOR NAO QUEBRA (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{17}: GASOLINA INFINITA (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{18}: DESBLOQUEAR CASA 3 (3.500K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{19}: DESBLOQUEAR FUMACA (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{20}: DESBLOQUEAR ANIMAÇÕES (2.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{21}: DESBLOQUEAR RODAS (4.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{22}: DESBLOQUEAR ROUPAS MASCULINAS (3.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{23}: DESBLOQUEAR ROUPAS FEMININAS (3.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{24}: ALTERAR CORRIDAS GANHAS (1.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{25}: ALTERAR CORRIDAS PERDIDAS (1.000K'))
-            print(Colorate.Horizontal(Colors.rainbow, '{26}: CLONAR CONTA (5.000K)'))
-            print(Colorate.Horizontal(Colors.rainbow, '{00}: SAIR'))
-            print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ CPM☆ ]' + '='*15))
+           def exibir_menu_principal(console):
+    opcoes = [
+        ("01", "ADICIONAR DINHEIRO", "1.000K"),
+        ("02", "ADICIONAR GOLDS", "3.500K"),
+        ("03", "INSERIR RANK KING", "4.000K"),
+        ("04", "MUDAR ID", "3.500K"),
+        ("05", "MUDAR NOME", "100"),
+        ("06", "MUDAR NOME (RGB)", "100"),
+        ("07", "NUMEROS PLACAS", "2.000K"),
+        ("08", "DELETAR CONTA", "GRÁTIS"),
+        ("09", "REGISTRAR CONTA", "GRÁTIS"),
+        ("10", "DELETAR AMIGOS", "500"),
+        ("11", "DESBLOQUEAR CARROS PAGOS", "4.000K"),
+        ("12", "DESBLOQUEAR TODOS CARROS", "3.000K"),
+        ("13", "SIRENE EM TODOS CARROS", "2.000K"),
+        ("14", "DESBLOQUEAR W16", "3.000K"),
+        ("15", "DESBLOQUEAR BUZINAS", "3.000K"),
+        ("16", "MOTOR NAO QUEBRA", "2.000K"),
+        ("17", "GASOLINA INFINITA", "2.000K"),
+        ("18", "DESBLOQUEAR CASA 3", "3.500K"),
+        ("19", "DESBLOQUEAR FUMAÇA", "2.000K"),
+        ("20", "DESBLOQUEAR ANIMAÇÕES", "2.000K"),
+        ("21", "DESBLOQUEAR RODAS", "4.000K"),
+        ("22", "ROUPAS MASCULINAS", "3.000K"),
+        ("23", "ROUPAS FEMININAS", "3.000K"),
+        ("24", "ALTERAR CORRIDAS GANHAS", "1.000K"),
+        ("25", "ALTERAR CORRIDAS PERDIDAS", "1.000K"),
+        ("26", "CLONAR CONTA", "5.000K"),
+        ("00", "SAIR", ""),
+    ]
+
+    estilo_num = Style(color="rgb(50,255,100)", bold=True)        # Verde limão
+    estilo_nome = Style(color="rgb(0,191,255)")                   # Azul neon
+    estilo_valor = Style(color="rgb(255,215,0)")                  # Dourado
+    estilo_borda = Style(color="rgb(255,0,0)")                    # Vermelho
+    estilo_titulo = Style(color="rgb(180,200,220)", bold=True)   # Cinza azulado
+
+    topo = "┌" + "─" * 55 + "┐"
+    base = "└" + "─" * 55 + "┘"
+    console.print(Text(topo, style=estilo_borda))
+    console.print(Text("│{:^55}│".format("MENU PRINCIPAL - BH VENDAS"), style=estilo_borda))
+    console.print(Text("├" + "─" * 55 + "┤", style=estilo_borda))
+
+    for cod, nome, valor in opcoes:
+        linha = Text("│ ", style=estilo_borda)
+        linha.append(cod, style=estilo_num)
+        linha.append(": ", style=estilo_borda)
+        linha.append(nome, style=estilo_nome)
+        if valor:
+            linha.append(f" ({valor})", style=estilo_valor)
+        espaço_final = 55 - (len(cod) + len(nome) + len(valor) + 4)
+        linha.append(" " * max(espaço_final, 0), style=estilo_borda)
+        linha.append("│", style=estilo_borda)
+        console.print(linha)
+
+    console.print(Text(base, style=estilo_borda))
+
             
             # Obtém a seleção do usuário
             service = IntPrompt.ask(
