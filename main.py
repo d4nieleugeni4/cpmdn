@@ -140,7 +140,7 @@ def banner(console):
 
     # Símbolos que serão pintados de vermelho
     simbolos_borda = "│─┘└┐┌┤├┬┴"
-    estelas = "✯"
+    estrelas = "✯"
 
     # Render linha por linha
     for line in banner_lines:
