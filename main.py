@@ -101,9 +101,14 @@ def rainbow_gradient_string(customer_name):
 # Funções de Interface do Usuário
 # ========================================
 def banner(console):
-    """Exibe o banner colorido da ferramenta com cores separadas"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    # Cores definidas
+    cor_borda = Style(color="rgb(169,169,169)")      # cinza escuro
+    cor_logo  = Style(color="rgb(0,191,255)", bold=True)  # azul neon (para "BH VENDAS")
+    cor_texto = Style(color="rgb(211,211,211)")      # cinza claro
+
+    # Bloco completo do banner
     banner_lines = [
         "┌───────────────────────────────────────────────────────┐",
         "│                                                       │",
@@ -131,22 +136,16 @@ def banner(console):
         "└──────────────────────────┴────────────────────────────┘"
     ]
 
-    # Cores
-    border_color = Style(color="rgb(105,105,105)")
-    title_color = Style(color="rgb(0,191,255)", bold=True)
-    text_color = Style(color="rgb(211,211,211)")
-
+    # Renderizando linha por linha
     for line in banner_lines:
         styled_line = Text()
-        if "BH VENDAS" in line or "██████" in line:
-            # Destacar título
-            styled_line.append(line, style=title_color)
-        elif line.startswith("┌") or line.startswith("└") or line.startswith("├") or line.startswith("│") and line.endswith("│"):
-            # Contorno
-            styled_line.append(line, style=border_color)
-        else:
-            # Texto interno
-            styled_line.append(line, style=text_color)
+        for char in line:
+            if char in "┌┐└┘─┬┴├┤┼│":  # caractere de borda
+                styled_line.append(char, style=cor_borda)
+            elif "█" in char:
+                styled_line.append(char, style=cor_logo)
+            else:
+                styled_line.append(char, style=cor_texto)
         console.print(styled_line)
 
     
