@@ -145,11 +145,11 @@ def banner(console):
     console.print(colorful_text)
     
     # Linhas decorativas e informações de contato
-    print(Colorate.Horizontal(Colors.rainbow, '='*70))
-    print(Colorate.Horizontal(Colors.rainbow, '\tFAÇA LOGOUT DO CPM ANTES DE USAR ESTA FERRAMENTA'))
-    print(Colorate.Horizontal(Colors.rainbow, 'COMPARTILHAR A CHAVE DE ACESSO NÃO É PERMITIDO - SERÁ BLOQUEADO'))
-    print(Colorate.Horizontal(Colors.rainbow, f'INSTAGRAM: @{__CHANNEL_USERNAME__} WHATSAPP: {__GROUP_USERNAME__}'))
-    print(Colorate.Horizontal(Colors.rainbow, '='*70))
+  #  print(Colorate.Horizontal(Colors.rainbow, '='*70))
+  #  print(Colorate.Horizontal(Colors.rainbow, '\tFAÇA LOGOUT DO CPM ANTES DE USAR ESTA FERRAMENTA'))
+   # print(Colorate.Horizontal(Colors.rainbow, 'COMPARTILHAR A CHAVE DE ACESSO NÃO É PERMITIDO - SERÁ BLOQUEADO'))
+   # print(Colorate.Horizontal(Colors.rainbow, f'INSTAGRAM: @{__CHANNEL_USERNAME__} WHATSAPP: {__GROUP_USERNAME__}'))
+   # print(Colorate.Horizontal(Colors.rainbow, '='*70))
 
 def prompt_valid_value(content, tag, password=False):
     """
