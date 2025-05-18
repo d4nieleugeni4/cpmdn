@@ -134,10 +134,11 @@ def banner(console):
     
     # Lista de cores para o efeito gradiente
     colors = [
-        "rgb(255,0,0)", "rgb(255,69,0)", "rgb(255,140,0)", "rgb(255,215,0)", 
-        "rgb(173,255,47)", "rgb(0,255,0)", "rgb(0,255,255)", "rgb(0,191,255)", 
-        "rgb(0,0,255)", "rgb(139,0,255)", "rgb(255,0,255)"
-    ]
+    "rgb(220,220,220)", "rgb(200,200,200)", "rgb(180,180,180)",
+    "rgb(160,160,160)", "rgb(140,140,140)", "rgb(120,120,120)",
+    "rgb(100,100,100)", "rgb(80,80,80)", "rgb(60,60,60)"
+]
+
     
     # Aplica o efeito gradiente
     colorful_text = gradient_text(brand_name, colors)
