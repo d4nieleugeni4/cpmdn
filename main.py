@@ -1,8 +1,5 @@
 #!/usr/bin/python
 
-# ========================================
-# Importações de Bibliotecas
-# ========================================
 import random
 import requests
 from time import sleep
@@ -14,47 +11,25 @@ from rich.style import Style
 import pystyle
 from pystyle import Colors, Colorate
 
-# Importação do módulo personalizado para interação com o CPM
 from noelcpm import CPMnoelcpm
 
-# ========================================
-# Configurações e Constantes
-# ========================================
-__CHANNEL_USERNAME__ = "bh_vendas"  # Nome do canal no Instagram
-__GROUP_USERNAME__   = "67 99187-0782"  # Número do WhatsApp para contato
+__CHANNEL_USERNAME__ = "@noel_vendas"
+__GROUP_USERNAME__   = "11978458163"
 
-# ========================================
-# Manipulador de Sinais para saída limpa
-# ========================================
 def signal_handler(sig, frame):
-    """Função chamada quando o usuário pressiona Ctrl+C para sair"""
-    print("\nSaindo... Até mais!")
+    print("\n Bye Bye...")
     sys.exit(0)
 
-# ========================================
-# Utilitários de Texto e Cores
-# ========================================
 def gradient_text(text, colors):
-    """
-    Cria um efeito de gradiente no texto usando múltiplas cores
-    Args:
-        text: Texto a ser colorido
-        colors: Lista de cores no formato RGB
-    Returns:
-        Texto formatado com o gradiente
-    """
     lines = text.splitlines()
     height = len(lines)
     width = max(len(line) for line in lines)
     colorful_text = Text()
-    
     for y, line in enumerate(lines):
         for x, char in enumerate(line):
             if char != ' ':
-                # Calcula o índice da cor baseado na posição do caractere
-                color_index = int(((x / (width - 1 if width > 1 else 1)) + 
-                                 (y / (height - 1 if height > 1 else 1))) * 0.5 * (len(colors) - 1))
-                color_index = min(max(color_index, 0), len(colors) - 1)
+                color_index = int(((x / (width - 1 if width > 1 else 1)) + (y / (height - 1 if height > 1 else 1))) * 0.5 * (len(colors) - 1))
+                color_index = min(max(color_index, 0), len(colors) - 1)  # Ensure the index is within bounds
                 style = Style(color=colors[color_index])
                 colorful_text.append(char, style=style)
             else:
@@ -62,575 +37,937 @@ def gradient_text(text, colors):
         colorful_text.append("\n")
     return colorful_text
 
+#BANNER PRINCIPAL
+
+def banner(console):
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    # Cores atualizadas
+    cor_borda = Style(color="#00ced1")          # Ciano claro para bordas
+    cor_logo = Style(color="#000080", bgcolor="white")  # Azul naval com borda branca
+    cor_texto = Style(color="white")            # Texto principal
+    cor_destaque = Style(color="#00ced1")       # Ciano para bullets
+    cor_aviso = Style(color="#0000ff")          # Azul para avisos
+
+    # Banner com contornos simplificados
+    banner_lines = [
+        "┌───────────────────────────────────────────────────────────┐",
+        "│                                                           │",
+        "│                     ██████╗ ██╗  ██╗                      │",
+        "│                     ██╔══██╗██║  ██║                      │",
+        "│                     ██████╔╝███████║                      │",
+        "│                     ██╔══██╗██╔══██║                      │",
+        "│                     ██████╔╝██║  ██║                      │",
+        "│                     ╚═════╝ ╚═╝  ╚═╝                      │",
+        "│    ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗    │",
+        "│    ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝    │",
+        "│    ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗    │",
+        "│    ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║    │",
+        "│     ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║    │",
+        "│      ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝    │", 
+        "│                                                           │",
+        "│           FERRAMENTA PREMIUM - BH VENDAS                  │",
+        "│                                                           │",
+        "│  • Desconecte-se da conta CPM antes de usar               │",
+        "│  • Adquira sua key: (67) 99187-0782                       │",
+        "│                                                           │",
+        "│  ⚠ Não revenda sua licença ou compartilhe o tool          │",
+        "│  ⚠ @bh_vendas - Suporte exclusivo                         │",
+        "│                                                           │",
+        "└───────────────────────────────────────────────────────────┘",
+        "┌───────────────────────────────────────────────────────────┐",
+        "│  © 2024 BH VENDAS - TODOS OS DIREITOS RESERVADOS          │",
+        "└───────────────────────────────────────────────────────────┘"
+    ]
+
+    # Elementos especiais para estilização
+    elementos = {
+        'borda': "┌┐└┘─│",
+        'detalhe': "•⚠",
+        'logo': "█",
+        'copy': "©"
+    }
+
+    # Renderização
+    for line in banner_lines:
+        styled_line = Text()
+        for char in line:
+            if char in elementos['borda']:
+                styled_line.append(char, style=cor_borda)
+            elif char in elementos['detalhe']:
+                styled_line.append(char, style=cor_destaque)
+            elif char in elementos['logo']:
+                styled_line.append(char, style=cor_logo)
+            elif char in elementos['copy']:
+                styled_line.append(char, style=cor_destaque)
+            else:
+                styled_line.append(char, style=cor_texto)
+        console.print(styled_line)
+
+
+
+
+def load_player_data(cpm):
+    response = cpm.get_player_data()
+
+    # Cores atualizadas conforme solicitado
+    ciano = Style(color="#00ced1")               # Ciano para rótulos (substitui o amarelo)
+    azul_escuro = Style(color="#000080")         # Azul escuro para símbolos de separação
+    ciano_escuro = Style(color="#008b8b")        # Ciano escuro para o título
+    white = Style(color="white")                 # Branco para valores
+
+    # Símbolos que devem ficar em AZUL ESCURO
+    border_symbols = ['=', '[', ']', '-']
+
+    if response.get('ok'):
+        data = response.get('data')
+        if 'floats' in data and 'localID' in data and 'money' in data and 'coin' in data:
+            # Linha do título (em ciano escuro com símbolos em azul escuro)
+            title_line = Text()
+            title_text = "==========[ INFORMACOES DO JOGADOR ]=========="
+            for char in title_text:
+                if char in border_symbols:
+                    title_line.append(char, azul_escuro)
+                else:
+                    title_line.append(char, ciano_escuro)
+
+            console = Console()
+            console.print(title_line)
+
+            # Linhas de informações (rótulo em ciano, valor em branco)
+            infos = [
+                ("NOME", data.get('Name', 'UNDEFINED')),
+                ("SEU ID NO JOGO", data.get('localID')),
+                ("DINHEIRO", data.get('money')),
+                ("GOLDS", data.get('coin'))
+            ]
+
+            for label, value in infos:
+                line = Text()
+                # Adiciona o rótulo em ciano
+                line.append(f"{label}: ", ciano)
+                # Adiciona o valor em branco
+                line.append(str(value), white)
+                console.print(line)
+
+        else:
+            error_line = Text()
+            error_msg = "! ERRO: Contas novas devem ser movimentadas ao menos uma vez !"
+            for char in error_msg:
+                if char in border_symbols:
+                    error_line.append(char, azul_escuro)
+                else:
+                    error_line.append(char, ciano)
+            console.print(error_line)
+            exit(1)
+    else:
+        error_line = Text()
+        error_msg = "! ERRO: Seu login não está configurado corretamente !"
+        for char in error_msg:
+            if char in border_symbols:
+                error_line.append(char, azul_escuro)
+            else:
+                error_line.append(char, ciano)
+        console.print(error_line)
+        exit(1)
+
+
+
+def load_key_data(cpm):
+    data = cpm.get_key_data()
+
+    # Cores atualizadas conforme solicitado
+    ciano = Style(color="#00ced1")               # Ciano para rótulos (substitui o amarelo)
+    azul_escuro = Style(color="#000080")         # Azul escuro para símbolos de separação
+    ciano_escuro = Style(color="#008b8b")        # Ciano escuro para o título
+    white = Style(color="white")                 # Branco para valores
+
+    # Símbolos que devem ficar em AZUL ESCURO
+    border_symbols = ['=', '[', ']', '-']
+
+    # Linha do título (em ciano escuro com símbolos em azul escuro)
+    title_line = Text()
+    title_text = "========[ DETALHES DA CHAVE DE ACESSO ]========"
+    for char in title_text:
+        if char in border_symbols:
+            title_line.append(char, azul_escuro)
+        else:
+            title_line.append(char, ciano_escuro)
+
+    console = Console()
+    console.print(title_line)
+
+    # Linhas de informações (rótulo em ciano, valor em branco)
+    infos = [
+        ("CHAVE DE ACESSO", str(data.get("access_key", "None"))),
+        ("ID DO TELEGRAM", str(data.get("telegram_id", "None"))),
+        ("SEU SALDO $", str(data.get("coins", "None")) if not data.get("is_unlimited", False) else "ilimitado")
+    ]
+
+    for label, value in infos:
+        line = Text()
+        # Adiciona o rótulo em ciano
+        line.append(f"{label}: ", ciano)
+        # Adiciona o valor em branco (garantindo que é string)
+        line.append(str(value), white)
+        console.print(line)
+
+
+
+console = Console()
+
+def prompt_valid_value(content, tag, password=False):
+    while True:
+        value = Prompt.ask(content, password=password)
+        if not value or value.isspace():
+            console.print(
+                f"{tag} não pode estar vazio ou conter apenas espaços. Por favor, tente novamente.",
+                style="bold red"
+            )
+        else:
+            return value
+
+
+def load_client_details():
+    response = requests.get("http://ip-api.com/json")
+    data = response.json()
+
+    # Cores atualizadas conforme padrão solicitado
+    ciano = Style(color="#00ced1")               # Ciano para rótulos
+    azul_escuro = Style(color="#000080")        # Azul escuro para símbolos
+    ciano_escuro = Style(color="#008b8b")       # Ciano escuro para títulos
+    white = Style(color="white")                # Branco para valores
+
+    # Símbolos que devem ficar em AZUL ESCURO
+    border_symbols = ['=', '[', ']', '-']
+
+    console = Console()
+
+    # Título Localização (símbolos azul escuro, texto ciano escuro)
+    title_line = Text()
+    title_text = "=============[ LOCALIZACAO ]============="
+    for char in title_text:
+        if char in border_symbols:
+            title_line.append(char, azul_escuro)
+        else:
+            title_line.append(char, ciano_escuro)
+    console.print(title_line)
+
+    # Dados de localização (rótulos em ciano, valores em branco)
+    infos = [
+        ("ENDERECO IP", data.get("query", "N/A")),
+        ("CIDADE", f"{data.get('city', 'N/A')} {data.get('regionName', 'N/A')} {data.get('countryCode', 'N/A')}"),
+        ("PAIS", f"{data.get('country', 'N/A')} {data.get('zip', '')}")
+    ]
+
+    for label, value in infos:
+        line = Text()
+        line.append(f"{label}: ", ciano)        # Rótulo em ciano
+        line.append(str(value), white)          # Valor em branco
+        console.print(line)
+
+    # Título Menu (símbolos azul escuro, texto ciano escuro)
+    menu_title = Text()
+    menu_text = "===============[ MENU ]==============="
+    for char in menu_text:
+        if char in border_symbols:
+            menu_title.append(char, azul_escuro)
+        else:
+            menu_title.append(char, ciano_escuro)
+    console.print(menu_title)
+
+
 def interpolate_color(start_color, end_color, fraction):
-    """
-    Interpola entre duas cores hexadecimais
-    Args:
-        start_color: Cor inicial (hex)
-        end_color: Cor final (hex)
-        fraction: Fração da interpolação (0 a 1)
-    Returns:
-        Cor interpolada (string hex)
-    """
     start_rgb = tuple(int(start_color[i:i+2], 16) for i in (1, 3, 5))
     end_rgb = tuple(int(end_color[i:i+2], 16) for i in (1, 3, 5))
     interpolated_rgb = tuple(int(start + fraction * (end - start)) for start, end in zip(start_rgb, end_rgb))
-    return "#{:02x}{:02x}{:02x}".format(*interpolated_rgb)
+    return "{:02x}{:02x}{:02x}".format(*interpolated_rgb)
 
 def rainbow_gradient_string(customer_name):
-    """
-    Cria um efeito arco-íris no texto
-    Args:
-        customer_name: Texto a ser formatado
-    Returns:
-        String com códigos de cores para efeito arco-íris
-    """
     modified_string = ""
     num_chars = len(customer_name)
-    # Gera cores aleatórias para início e fim do gradiente
-    start_color = "#{:06x}".format(random.randint(0, 0xFFFFFF))
-    end_color = "#{:06x}".format(random.randint(0, 0xFFFFFF))
-    
+    start_color = "{:06x}".format(random.randint(0, 0xFFFFFF))
+    end_color = "{:06x}".format(random.randint(0, 0xFFFFFF))
     for i, char in enumerate(customer_name):
         fraction = i / max(num_chars - 1, 1)
         interpolated_color = interpolate_color(start_color, end_color, fraction)
         modified_string += f'[{interpolated_color}]{char}'
     return modified_string
 
-# ========================================
-# Funções de Interface do Usuário
-# ========================================
-def banner(console):
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    # Cores
-    cor_borda = Style(color="rgb(255,0,0)")              # VERMELHO
-    cor_logo  = Style(color="rgb(0,191,255)", bold=True) # AZUL NEON (BH VENDAS)
-    cor_texto = Style(color="rgb(180,200,220)")          # CINZA AZULADO (SUAVE)
-
-    # Desenho do banner
-    banner_lines = [
-        "┌───────────────────────────────────────────────────────┐",
-        "│                                                       │",
-        "│                    ██████╗ ██╗  ██╗                   │", 
-        "│                    ██╔══██╗██║  ██║                   │",
-        "│                    ██████╔╝███████║                   │",
-        "│                    ██╔══██╗██╔══██║                   │",
-        "│                    ██████╔╝██║  ██║                   │",
-        "│                    ╚═════╝ ╚═╝  ╚═╝                   │", 
-        "│  ██╗   ██╗███████╗███╗   ██╗██████╗  █████╗ ███████╗  │",
-        "│  ██║   ██║██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝  │",
-        "│  ██║   ██║█████╗  ██╔██╗ ██║██║  ██║███████║███████╗  │",
-        "│  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║  ██║██╔══██║╚════██║  │",
-        "│   ╚████╔╝ ███████╗██║ ╚████║██████╔╝██║  ██║███████║  │",
-        "│    ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝  │",     
-        "│                                                       │",
-        "├───────────────────────────────────────────────────────┤",
-        "│DESLOGUE DA CONTA CPM ANTES DE USAR ESTA FERRAMENTA    │",
-        "├───────────────────────────────────────────────────────┤",
-        "│PARA COMPRA UMA KEY ENTRE EM CONTATO PELO TELEGRAM:    │",
-        "│                                                       │",
-        "├──────────────────────────┬────────────────────────────┤",
-        "│INSTAGRAM: @bh_vendas     │É PROIBIDO REVENDER SUA KEY │",
-        "│WHATSAPP: 67 99187-0782   │DE ACESSO OU O SCRIPT       │",
-        "└──────────────────────────┴────────────────────────────┘"
-    ]
-
-    # Símbolos que fazem parte da borda
-    simbolos_borda = "│─┘└┐┌┤├┬┴"
-
-    # Pintando cada caractere conforme sua categoria
-    for line in banner_lines:
-        styled_line = Text()
-        for char in line:
-            if char in simbolos_borda:
-                styled_line.append(char, style=cor_borda)
-            elif "█" in char:
-                styled_line.append(char, style=cor_logo)
-            else:
-                styled_line.append(char, style=cor_texto)
-        console.print(styled_line)
 
 
-    
-def prompt_valid_value(content, tag, password=False):
+from rich.console import Console
+from rich.text import Text
+from rich.style import Style
+
+def print_menu_line(line):
     """
-    Solicita entrada do usuário com validação
-    Args:
-        content: Texto a ser exibido no prompt
-        tag: Identificador do campo para mensagens de erro
-        password: Se True, oculta a entrada (para senhas)
-    Returns:
-        Valor válido inserido pelo usuário
+    Imprime linhas formatadas do menu com padrão consistente
     """
-    while True:
-        value = Prompt.ask(content, password=password)
-        if not value or value.isspace():
-            print(Colorate.Horizontal(Colors.rainbow, f'{tag} não pode estar vazio. Por favor, tente novamente.'))
-        else:
-            return value
+    # Cores padronizadas conforme load_key_data
+    ciano = Style(color="#00ced1")               # Ciano para rótulos
+    azul_escuro = Style(color="#000080")         # Azul escuro para símbolos
+    ciano_escuro = Style(color="#008b8b")        # Ciano escuro para títulos
+    white = Style(color="white")                 # Branco para valores
 
-# ========================================
-# Funções de Carregamento de Dados
-# ========================================
-def load_player_data(cpm):
-    """Carrega e exibe os dados do jogador"""
-    response = cpm.get_player_data()
-    
-    if response.get('ok'):
-        data = response.get('data')
-        if all(key in data for key in ['floats', 'localID', 'money', 'coin']):
-            print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ INFORMAÇÕES DO JOGADOR ]' + '='*15))
-            print(Colorate.Horizontal(Colors.rainbow, f'NOME: {(data.get("Name") or "UNDEFINED")}'))
-            print(Colorate.Horizontal(Colors.rainbow, f'ID NO JOGO: {data.get("localID")}'))
-            print(Colorate.Horizontal(Colors.rainbow, f'DINHEIRO: {data.get("money")}'))
-            print(Colorate.Horizontal(Colors.rainbow, f'GOLDS: {data.get("coin")}'))
-        else:
-            print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Contas novas precisam entrar no jogo pelo menos uma vez!'))
-            exit(1)
-    else:
-        print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Seu login não está configurado corretamente!'))
-        exit(1)
-
-def load_key_data(cpm):
-    """Carrega e exibe os dados da chave de acesso"""
-    data = cpm.get_key_data()
-    
-    print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ DETALHES DA CHAVE DE ACESSO ]' + '='*15))
-    print(Colorate.Horizontal(Colors.rainbow, f'CHAVE DE ACESSO: {data.get("access_key")}'))
-    print(Colorate.Horizontal(Colors.rainbow, f'ID DO TELEGRAM: {data.get("telegram_id")}'))
-    print(Colorate.Horizontal(Colors.rainbow, f'SALDO: {data.get("coins") if not data.get("is_unlimited") else "ILIMITADO"}'))
-
-def load_client_details():
-    """Obtém e exibe informações de localização do cliente"""
-    response = requests.get("http://ip-api.com/json")
-    data = response.json()
-    
-    print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ LOCALIZAÇÃO ]' + '='*15))
-    print(Colorate.Horizontal(Colors.rainbow, f'IP: {data.get("query")}'))
-    print(Colorate.Horizontal(Colors.rainbow, f'CIDADE: {data.get("city")}, {data.get("regionName")} ({data.get("countryCode")})'))
-    print(Colorate.Horizontal(Colors.rainbow, f'PAÍS: {data.get("country")} - CEP: {data.get("zip")}'))
-    print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ MENU ]' + '='*15))
-
-# ========================================
-# Programa Principal
-# ========================================
-if __name__ == "__main__":
-    # Configurações iniciais
     console = Console()
-    signal.signal(signal.SIGINT, signal_handler)  # Configura o handler para Ctrl+C
-    
-    # Loop principal de autenticação
+    try:
+        if line.startswith('{') and ':' in line:
+            # Para itens de menu (rótulo ciano, valor branco)
+            num_part, rest = line.split(':', 1)
+
+            if any(c.isdigit() for c in rest.split()[-1]):
+                parts = rest.rsplit(maxsplit=1)
+                if len(parts) == 2:
+                    text_part, price_part = parts
+                    styled_line = Text()
+                    styled_line.append(f"{num_part}:", style=ciano)
+                    styled_line.append(text_part, style=white)
+                    styled_line.append(f" {price_part}", style="bright_black")
+                    console.print(styled_line)
+                else:
+                    styled_line = Text()
+                    styled_line.append(f"{num_part}:", style=ciano)
+                    styled_line.append(rest, style="bright_black")
+                    console.print(styled_line)
+            else:
+                styled_line = Text()
+                styled_line.append(f"{num_part}:", style=ciano)
+                styled_line.append(rest, style=white)
+                console.print(styled_line)
+
+        elif line.startswith('=') or line.startswith('[') or line.startswith('─'):
+            # Linhas de separação padronizadas (como em load_key_data)
+            title_line = Text()
+            for char in line:
+                if char in ['=', '[', ']', '─']:
+                    title_line.append(char, style=azul_escuro)
+                else:
+                    title_line.append(char, style=ciano_escuro)
+            console.print(title_line)
+
+        else:
+            console.print(line, style=white)
+
+    except Exception:
+        console.print(line, style=white)
+
+if __name__ == "__main__":
+    console = Console()
+    signal.signal(signal.SIGINT, signal_handler)
     while True:
-        # Exibe o banner e solicita credenciais
         banner(console)
-        acc_email = prompt_valid_value("[bold][?] INSIRA SEU EMAIL[/bold]", "Email")
-        acc_password = prompt_valid_value("[bold][?] INSIRA SUA SENHA[/bold]", "Senha", password=True)
-        acc_access_key = prompt_valid_value("[bold][?] INSIRA SUA CHAVE DE ACESSO[/bold]", "Chave de Acesso")
-        
-        # Tenta fazer login
-        console.print("[bold cyan][%] Tentando login...[/bold cyan]", end="")
+        acc_email = prompt_valid_value("[bold][?] INSIRA SEU EMAIL[/bold]", "Email", password=False)
+        acc_password = prompt_valid_value("[bold][?] INSIRA SUA SENHA[/bold]", "Password", password=False)
+        acc_access_key = prompt_valid_value("[bold][?] INSIRA SUA CHAVE DE ACESSO[/bold]", "Access Key", password=False)
+        console.print("[bold cyan][%] Trying to Login[/bold cyan]: ", end=None)
         cpm = CPMnoelcpm(acc_access_key)
         login_response = cpm.login(acc_email, acc_password)
-        
-        # Processa a resposta do login
         if login_response != 0:
             if login_response == 100:
-                print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Conta não existe!'))
+                console.print("[bold red]ESSA CONTA NAO EXISTE.[/bold red]")
+                sleep(2)
+                continue
             elif login_response == 101:
-                print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Senha inválida!'))
+                console.print("[bold red]SENHA INVALIDA.[/bold red]")
+                sleep(2)
+                continue
             elif login_response == 103:
-                print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Chave de acesso inválida!'))
+                console.print("[bold red]CHAVE DE ACESSO INVALIDA.[/bold red]")
+                sleep(2)
+                continue
             else:
-                print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Tente novamente mais tarde!'))
-                print(Colorate.Horizontal(Colors.rainbow, 'O banco de dados pode estar sobrecarregado!'))
-            sleep(2)
-            continue
+                console.print("[bold red]TENTE NOVAMENTE.[/bold red]")
+                console.print("[bold red]! ATENCAO: BANCO DE DADOS LOTADO, FALE COM O SUPORTE ![/bold red]")
+                sleep(2)
+                continue
         else:
-            print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Login realizado!'))
+            console.print("[bold green]SUCESSO.[/bold green]")
             sleep(2)
-        
-        # Menu principal de serviços
         while True:
-            banner(console)
+            os.system('cls' if os.name == 'nt' else 'clear')
             load_player_data(cpm)
             load_key_data(cpm)
             load_client_details()
-            
-            # Exibe o menu de opções
-            choices = [str(i) for i in range(27)]  # 0-26
-           def exibir_menu_principal(console):
-    opcoes = [
-        ("01", "ADICIONAR DINHEIRO", "1.000K"),
-        ("02", "ADICIONAR GOLDS", "3.500K"),
-        ("03", "INSERIR RANK KING", "4.000K"),
-        ("04", "MUDAR ID", "3.500K"),
-        ("05", "MUDAR NOME", "100"),
-        ("06", "MUDAR NOME (RGB)", "100"),
-        ("07", "NUMEROS PLACAS", "2.000K"),
-        ("08", "DELETAR CONTA", "GRÁTIS"),
-        ("09", "REGISTRAR CONTA", "GRÁTIS"),
-        ("10", "DELETAR AMIGOS", "500"),
-        ("11", "DESBLOQUEAR CARROS PAGOS", "4.000K"),
-        ("12", "DESBLOQUEAR TODOS CARROS", "3.000K"),
-        ("13", "SIRENE EM TODOS CARROS", "2.000K"),
-        ("14", "DESBLOQUEAR W16", "3.000K"),
-        ("15", "DESBLOQUEAR BUZINAS", "3.000K"),
-        ("16", "MOTOR NAO QUEBRA", "2.000K"),
-        ("17", "GASOLINA INFINITA", "2.000K"),
-        ("18", "DESBLOQUEAR CASA 3", "3.500K"),
-        ("19", "DESBLOQUEAR FUMAÇA", "2.000K"),
-        ("20", "DESBLOQUEAR ANIMAÇÕES", "2.000K"),
-        ("21", "DESBLOQUEAR RODAS", "4.000K"),
-        ("22", "ROUPAS MASCULINAS", "3.000K"),
-        ("23", "ROUPAS FEMININAS", "3.000K"),
-        ("24", "ALTERAR CORRIDAS GANHAS", "1.000K"),
-        ("25", "ALTERAR CORRIDAS PERDIDAS", "1.000K"),
-        ("26", "CLONAR CONTA", "5.000K"),
-        ("00", "SAIR", ""),
-    ]
+            choices = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"]
 
-    estilo_num = Style(color="rgb(50,255,100)", bold=True)        # Verde limão
-    estilo_nome = Style(color="rgb(0,191,255)")                   # Azul neon
-    estilo_valor = Style(color="rgb(255,215,0)")                  # Dourado
-    estilo_borda = Style(color="rgb(255,0,0)")                    # Vermelho
-    estilo_titulo = Style(color="rgb(180,200,220)", bold=True)   # Cinza azulado
+            # Menu com separações padronizadas
+            print_menu_line('{01}: ADICIONAR DINHEIRO           1.000K')
+            print_menu_line('{02}: ADICIONAR GOLDS              3.500K')
+            print_menu_line('{03}: INSERIR RANK KING            4.000K')
+            print_menu_line('{04}: MUDAR ID                     3.500K')
+            print_menu_line('{05}: MUDAR NOME                   100')
+            print_menu_line('{06}: MUDAR NOME (RGB)             100')
+            print_menu_line('{07}: NUMEROS PLACAS               2.000K')
+            print_menu_line('{08}: DELETAR CONTA')
+            print_menu_line('{09}: REGISTRAR CONTA')
+            print_menu_line('{10}: DELETAR AMIGOS               500')
+            print_menu_line('{11}: DESBLOQUEAR CARROS PAGOS     4.000K')
+            print_menu_line('{12}: DESBLOQUEAR TODOS CARROS     3.000K')
+            print_menu_line('{13}: SIRENE EM TODOS CARROS       2.000K')
+            print_menu_line('{14}: DESBLOQUEAR W16              3.000K')
+            print_menu_line('{15}: DESBLOQUEAR BUZINAS          3.000K')
+            print_menu_line('{16}: MOTOR NAO QUEBRA             2.000K')
+            print_menu_line('{17}: GASOLINA INFINITA            2.000K')
+            print_menu_line('{18}: DESBLOQUEAR CASA 3           3.500K')
+            print_menu_line('{19}: DESBLOQUEAR FUMACA           2.000K')
+            print_menu_line('{20}: DESBLOQUEAR ANIMAÇÕES        2.000K')
+            print_menu_line('{21}: DESBLOQUEAR RODAS            4.000K')
+            print_menu_line('{22}: DESBLOQUEAR ROUPAS MASCULINAS 3.000K')
+            print_menu_line('{23}: DESBLOQUEAR ROUPAS FEMININAS  3.000K')
+            print_menu_line('{24}: ALTERAR CORRIDAS GANHAS      1.000K')
+            print_menu_line('{25}: ALTERAR CORRIDAS PERDIDAS    1.000K')
+            print_menu_line('{26}: CLONAR CONTA                 5.000K')
+            print_menu_line('{0} : SAIR')
+            print_menu_line("========[ 𝐂𝐏𝐌☆ ]========")
 
-    topo = "┌" + "─" * 55 + "┐"
-    base = "└" + "─" * 55 + "┘"
-    console.print(Text(topo, style=estilo_borda))
-    console.print(Text("│{:^55}│".format("MENU PRINCIPAL - BH VENDAS"), style=estilo_borda))
-    console.print(Text("├" + "─" * 55 + "┤", style=estilo_borda))
+            service = IntPrompt.ask(f"[bold][?] SELECIONE UM SERVICO [red][1-{choices[-1]} or 0][/red][/bold]", 
+                                  choices=choices, 
+                                  show_choices=False)
 
-    for cod, nome, valor in opcoes:
-        linha = Text("│ ", style=estilo_borda)
-        linha.append(cod, style=estilo_num)
-        linha.append(": ", style=estilo_borda)
-        linha.append(nome, style=estilo_nome)
-        if valor:
-            linha.append(f" ({valor})", style=estilo_valor)
-        espaço_final = 55 - (len(cod) + len(nome) + len(valor) + 4)
-        linha.append(" " * max(espaço_final, 0), style=estilo_borda)
-        linha.append("│", style=estilo_borda)
-        console.print(linha)
+            print_menu_line("========[ 𝐂𝐏𝐌☆ ]========")
+            if service == 0:  # Exit
+                console.print(f"[gold1]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/gold1]")
 
-    console.print(Text(base, style=estilo_borda))
+            elif service == 1: # Increase Money
+                console.print("[white][?] INSIRA A QUANTIDADE DE DINHEIRO QUE DESEJA ADICIONAR .[/white]")
+                amount = IntPrompt.ask("[white][?] QUANTIDADE[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
 
-            
-            # Obtém a seleção do usuário
-            service = IntPrompt.ask(
-                "[bold][?] SELECIONE UM SERVIÇO [red][1-26 ou 0][/red][/bold]", 
-                choices=choices, 
-                show_choices=False
-            )
-            print(Colorate.Horizontal(Colors.rainbow, '='*15 + '[ CPM☆ ]' + '='*15))
-            
-            # Processa a seleção do serviço
-            if service == 0:  # Sair
-                print(Colorate.Horizontal(Colors.rainbow, f'Volte sempre! @{__CHANNEL_USERNAME__}'))
-                break
-                
-            elif service == 1:  # Adicionar dinheiro
-                print(Colorate.Horizontal(Colors.rainbow, '[?] QUANTIDADE DE DINHEIRO PARA ADICIONAR:'))
-                amount = IntPrompt.ask("[?] QUANTIDADE", min=1, max=999999999)
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_money(amount):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Dinheiro adicionado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao adicionar dinheiro!'))
-                    sleep(2)
-            elif service == 2:  # Adicionar Golds
-                print(Colorate.Horizontal(Colors.rainbow, '[?] QUANTIDADE DE GOLDS PARA ADICIONAR:'))
-                amount = IntPrompt.ask("[?] QUANTIDADE", min=1, max=999999999)
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_coins(amount):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Golds adicionados!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao adicionar golds!'))
-                    sleep(2)
-
-            elif service == 3:  # Inserir Rank King
-                console.print("[!] ATENÇÃO: Se o King não aparecer, saia e abra o jogo algumas vezes.", end="")
-                console.print("[!] NÃO DESBLOQUEIE O KING NA MESMA CONTA DUAS VEZES.", end="")
-                sleep(2)
-                
-                console.print("[%] ADICIONANDO RANK KING...", end="")
-                if cpm.set_player_rank():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Rank King adicionado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao adicionar rank!'))
-                    sleep(2)
-
-            elif service == 4:  # Mudar ID
-                print(Colorate.Horizontal(Colors.rainbow, '[?] INSIRA O NOVO ID:'))
-                new_id = Prompt.ask("[?] NOVO ID").upper()
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if len(new_id) > 0 and ' ' not in new_id:
-                    if cpm.set_player_localid(new_id):
-                        print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: ID alterado!'))
-                        if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                            break
+                if amount > 0 and amount <= 999999999:
+                    if cpm.set_player_money(amount):
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[gold1]======================================[/gold1]")
+                        answ = Prompt.ask("[blue][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO [/blue]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y": 
+                            console.print(f"[gold1] VOLTE SEMPRE : @{__CHANNEL_USERNAME__}.[/gold1]")
+                        else: 
+                            continue
                     else:
-                        print(Colorate.Horizontal(Colors.rainbow, 'ERRO: ID já em uso!'))
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: ID inválido!'))
-                sleep(2)
-
-            elif service == 5:  # Mudar Nome
-                print(Colorate.Horizontal(Colors.rainbow, '[?] INSIRA O NOVO NOME:'))
-                new_name = Prompt.ask("[?] NOME")
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_name(new_name):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Nome alterado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao alterar nome!'))
-                    sleep(2)
-
-            elif service == 6:  # Mudar Nome (RGB)
-                print(Colorate.Horizontal(Colors.rainbow, '[?] INSIRA O NOVO NOME (EFEITO RGB):'))
-                new_name = Prompt.ask("[?] NOME")
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_name(rainbow_gradient_string(new_name)):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Nome RGB aplicado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao aplicar efeito!'))
-                    sleep(2)
-
-            elif service == 7:  # Números em Placas
-                console.print("[%] ADICIONANDO NÚMEROS NAS PLACAS...", end="")
-                if cpm.set_player_plates():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Placas modificadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao modificar placas!'))
-                    sleep(2)
-
-            elif service == 8:  # Deletar Conta
-                print(Colorate.Horizontal(Colors.rainbow, '[!] ATENÇÃO: ESTA AÇÃO É IRREVERSÍVEL!'))
-                confirm = Prompt.ask("[?] CONFIRMAR DELETAR CONTA? (Y/N)", choices=["y", "n"], default="n")
-                
-                if confirm == "y":
-                    console.print("[%] DELETANDO CONTA...", end="")
-                    if cpm.delete():
-                        print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Conta deletada!'))
-                        break
-                    else:
-                        print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao deletar conta!'))
+                        console.print("[bold red]FALHA.[/bold red]")
+                        console.print("[red]TENTE NOVAMENTE.[/red]")
                         sleep(2)
-
-            elif service == 9:  # Registrar Conta
-                print(Colorate.Horizontal(Colors.rainbow, '[!] REGISTRO DE NOVA CONTA'))
-                new_email = prompt_valid_value("[?] INSIRA UM EMAIL", "Email")
-                new_pass = prompt_valid_value("[?] INSIRA UMA SENHA", "Senha", password=True)
-                
-                console.print("[%] REGISTRANDO...", end="")
-                status = cpm.register(new_email, new_pass)
-                
-                if status == 0:
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Conta criada!'))
-                    print(Colorate.Horizontal(Colors.rainbow, 'ENTRE NO JOGO COM ESTA CONTA ANTES DE MODIFICÁ-LA'))
-                    sleep(5)
-                elif status == 105:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Email já em uso!'))
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha no registro!'))
+                    console.print("[bold red]FALHA[/bold red]")
+                    console.print("[red]UTILIZE VALORES VÁLIDOS.[/red]")
+                    sleep(2)
+                    continue
+
+
+            elif service == 2:  # Increase Coins
+                console.print("[white][?] INSIRA A QUANTIDADE DE GOLDS QUE DESEJA ADICIONAR.[/white]")
+                amount = IntPrompt.ask("[white][?] QUANTIDADE[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
+                if amount > 0 and amount <= 999999999:
+                    if cpm.set_player_coins(amount):
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO [/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y": 
+                            console.print(f"[white] VOLTE SEMPRE : @{__CHANNEL_USERNAME__}.[/white]")
+                        else: 
+                            continue
+                    else:
+                        console.print("[bold red]FALHA.[/bold red]")
+                        console.print("[red]TENTE NOVAMENTE.[/red]")
+                        sleep(2)
+                        continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]USE VALORES VALIDOS.[/red]")
+                    sleep(2)
+                    continue
+
+
+            elif service == 3:  # King Rank
+                console.print("[bold red][!] ATENCAO:[/bold red] SE O KING NAO APARECER, SAIA E ABRA O JOGO ALGUMAS VEZES.")
+                console.print("[bold red][!] ATENCAO:[/bold red] POR FAVOR NAO DESBLOQUEIE O KING NA MESMA CONTA DUAS VEZES.")
                 sleep(2)
+                console.print("[cyan][%] ADICIONANDO O KING NA SUA CONTA: [/cyan]", end="")
 
-            elif service == 10:  # Deletar Amigos
-                console.print("[%] DELETANDO LISTA DE AMIGOS...", end="")
+                if cpm.set_player_rank():
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    console.print("[white]======================================[/white]")
+
+                    answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO ?[/white]", 
+                                   choices=["y", "n"], default="n")
+                    if answ == "y": 
+                       console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else: 
+                       continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
+                    sleep(2)
+                    continue
+
+
+            elif service == 4:  # Change ID
+                console.print("[white][?] INSIRA SEU NOVO ID.[/white]")
+                new_id = Prompt.ask("[white][?] ID[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
+
+                if len(new_id) >= 0 and len(new_id) <= 999999999 and (' ' in new_id) == False:
+                    if cpm.set_player_localid(new_id.upper()):
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO [/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y": 
+                            console.print(f"[white] VOLTE SEMPRE : @{__CHANNEL_USERNAME__}.[/white]")
+                        else: 
+                            continue
+                    else:
+                        console.print("[bold red]FALHA.[/bold red]")
+                        console.print("[red]TENTE NOVAMENTE.[/red]")
+                        sleep(2)
+                        continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]ESSE ID JA ESTA EM USO TENTE OUTRO.[/red]")
+                    sleep(2)
+                    continue
+
+
+            elif service == 5:  # Change Name
+                console.print("[white][?] INSIRA SEU NOVO NOME.[/white]")
+                new_name = Prompt.ask("[white][?] NOME[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
+
+                if len(new_name) >= 0 and len(new_name) <= 999999999:
+                    if cpm.set_player_name(new_name):
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO [/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y": 
+                            console.print(f"[white] VOLTE SEMPRE : @{__CHANNEL_USERNAME__}.[/white]")
+                        else: 
+                            continue
+                    else:
+                        console.print("[bold red]FALHA.[/bold red]")
+                        console.print("[red]TENTE NOVAMENTE.[/red]")
+                        sleep(2)
+                        continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]USE VALORES VALIDOS.[/red]")
+                    sleep(2)
+                    continue
+
+            elif service == 6:  # Change Name Rainbow
+                 console.print("[white][?] INSIRA SEU NOVO NOME (RGB).[/white]")
+                 new_name = Prompt.ask("[white][?] NOME[/white]")
+                 console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
+
+                 if len(new_name) >= 0 and len(new_name) <= 999999999:
+                     if cpm.set_player_name(rainbow_gradient_string(new_name)):  # Mantido o efeito RGB apenas aqui
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO [/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y": 
+                            console.print(f"[white] VOLTE SEMPRE : @{__CHANNEL_USERNAME__}.[/white]")
+                        else: 
+                             continue
+                     else:
+                         console.print("[bold red]FALHA.[/bold red]")
+                         console.print("[red]TENTE NOVAMENTE.[/red]")
+                         sleep(2)
+                         continue
+                 else:
+                     console.print("[bold red]FALHA.[/bold red]")
+                     console.print("[red]USE VALORES VALIDOS.[/red]")
+                     sleep(2)
+                     continue
+
+            elif service == 7:  # Number Plates
+                console.print("[cyan][%] ADICIONANDO NÚMERO ÀS PLACAS: [/cyan]", end="")
+                if cpm.set_player_plates():
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR ? USE Y PARA SIM E N PARA NAO ?[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y": 
+                       console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else: 
+                        continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
+                    sleep(2)
+                    continue
+
+            elif service == 8:  # Account Delete
+                console.print("[bold red][!] APÓS DELETAR A CONTA NÃO TERÁ COMO VOLTAR ATRÁS!![/bold red]")
+                answ = Prompt.ask("[white][?] DESEJA REALMENTE DELETAR A CONTA? (use 'y' para sim e 'n' para não)[/white]", 
+                                choices=["y", "n"], default="n")
+                if answ == "y":
+                    cpm.delete()
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                else: 
+                    continue
+
+            elif service == 9:  # Account Register
+                console.print("[yellow][!] VAMOS REGISTRAR SUA NOVA CONTA.[/yellow]")
+                acc2_email = prompt_valid_value("[white][?] INSIRA UM EMAIL[/white]", "Email", password=False)
+                acc2_password = prompt_valid_value("[white][?] INSIRA UMA SENHA[/white]", "Password", password=True)
+                console.print("[cyan][%] CRIANDO SUA NOVA CONTA: [/cyan]", end="")
+
+                status = cpm.register(acc2_email, acc2_password)
+                if status == 0:
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    console.print("[yellow]INFO: AGORA VOCÊ JÁ PODE MODIFICAR ESTA CONTA.[/yellow]")
+                    console.print("[yellow]ENTRE PELO MENOS UMA VEZ NO JOGO USANDO ESSA CONTA ANTES DE ADICIONAR QUALQUER SERVIÇO.[/yellow]")
+                    sleep(7)
+                    continue
+                elif status == 105:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]ESSE EMAIL JÁ EXISTE, TENTE UM NOVO EMAIL QUE NÃO ESTEJA SENDO USADO![/red]")
+                    sleep(3)
+                    continue
+                else:
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
+                    sleep(2)
+                    continue
+
+            elif service == 10:  # Delete Friends
+                console.print("[cyan][%] DELETANDO SUA LISTA DE AMIGOS: [/cyan]", end="")
                 if cpm.delete_player_friends():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Amigos removidos!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao remover amigos!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 11:  # Desbloquear Carros Pagos
-                console.print("[!] ESTE PROCESSO PODE DEMORAR ALGUNS MINUTOS...", end="")
-                console.print("[%] DESBLOQUEANDO CARROS PAGOS...", end="")
+            elif service == 11:  # Unlock All Paid Cars
+                console.print("[bold red][!] ATENÇÃO: ESSA FUNÇÃO DEMORA UM POUCO PARA SER CONCLUÍDA. NÃO CANCELE.[/bold red]")
+                console.print("[cyan][%] DESBLOQUEANDO TODOS CARROS PAGOS: [/cyan]", end="")
+
                 if cpm.unlock_paid_cars():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Carros desbloqueados!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear carros!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 12:  # Desbloquear Todos Carros
-                console.print("[%] DESBLOQUEANDO TODOS OS CARROS...", end="")
-                if cpm.unlock_all_cars():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Todos carros desbloqueados!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear carros!'))
-                    sleep(2)
+            elif service == 12:  # Unlock All Cars
+                 console.print("[cyan][%] DESBLOQUEANDO TODOS CARROS: [/cyan]", end="")
 
-            elif service == 13:  # Sirene em Todos Carros
-                console.print("[%] ADICIONANDO SIRENE AOS CARROS...", end="")
+                 if cpm.unlock_all_cars():
+                     console.print("[bold green]SUCESSO[/bold green]")
+                     console.print("[white]======================================[/white]")
+                     answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                     choices=["y", "n"], default="n")
+                     if answ == "y":
+                         console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                     else:
+                         continue
+                 else:
+                     console.print("[bold red]FALHA.[/bold red]")
+                     console.print("[red]TENTE NOVAMENTE.[/red]")
+                     sleep(2)
+                     continue
+
+            elif service == 13:  # Unlock All Cars Siren
+                console.print("[cyan][%] ADICIONANDO SIRENE EM TODOS OS CARROS DA CONTA: [/cyan]", end="")
+
                 if cpm.unlock_all_cars_siren():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Sirenes adicionadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                   choices=["y", "n"], default="n")
+                    if answ == "y":
+                       console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao adicionar sirenes!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 14:  # Desbloquear W16
-                console.print("[%] DESBLOQUEANDO MOTOR W16...", end="")
+
+            elif service == 14:  # Unlock w16 Engine
+                console.print("[cyan][%] DESBLOQUEANDO W16: [/cyan]", end="")
+
                 if cpm.unlock_w16():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: W16 desbloqueado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear W16!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 15:  # Desbloquear Buzinas
-                console.print("[%] DESBLOQUEANDO TODAS AS BUZINAS...", end="")
+            elif service == 15:  # Unlock All Horns
+                console.print("[cyan][%] DESBLOQUEANDO TODAS AS BUZINAS: [/cyan]", end="")
+
                 if cpm.unlock_horns():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Buzinas desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else: 
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear buzinas!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 16:  # Motor Indestrutível
-                console.print("[%] CONFIGURANDO MOTOR INDESTRUTÍVEL...", end="")
+            elif service == 16:  # Disable Engine Damage
+                console.print("[cyan][%] DESATIVANDO DANO AO MOTOR: [/cyan]", end="")
+
                 if cpm.disable_engine_damage():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Motor configurado!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha na configuração!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 17:  # Gasolina Infinita
-                console.print("[%] CONFIGURANDO GASOLINA INFINITA...", end="")
+            elif service == 17:  # Unlimited Fuel
+                console.print("[cyan][%] ATIVANDO GASOLINA INFINITA: [/cyan]", end="")
+
                 if cpm.unlimited_fuel():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Gasolina infinita ativada!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha na configuração!'))
+                    console.print("[bold red]FALHA[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 18:  # Desbloquear Casa 3
-                console.print("[%] DESBLOQUEANDO CASA 3...", end="")
+
+            elif service == 18:  # Unlock House 3
+                console.print("[cyan][%] DESBLOQUEANDO CASA 3: [/cyan]", end="")
+
                 if cpm.unlock_houses():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Casa 3 desbloqueada!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear casa!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 19:  # Desbloquear Fumaça
-                console.print("[%] DESBLOQUEANDO EFEITOS DE FUMO...", end="")
+            elif service == 19:  # Unlock Smoke
+                console.print("[cyan][%] DESBLOQUEANDO FUMAÇA: [/cyan]", end="")
+
                 if cpm.unlock_smoke():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Fumaças desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else: 
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear fumaças!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 20:  # Desbloquear Animações
-                console.print("[%] DESBLOQUEANDO ANIMAÇÕES...", end="")
+
+            elif service == 20:  # Unlock Animations
+                console.print("[cyan][%] DESBLOQUEANDO ANIMAÇÕES: [/cyan]", end="")
+
                 if cpm.unlock_animations():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Animações desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear animações!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 21:  # Desbloquear Rodas
-                console.print("[%] DESBLOQUEANDO RODAS ESPECIAIS...", end="")
+
+            elif service == 21:  # Unlock Wheels
+                console.print("[cyan][%] DESBLOQUEANDO RODAS: [/cyan]", end="")
+
                 if cpm.unlock_wheels():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Rodas desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear rodas!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 22:  # Desbloquear Roupas Masculinas
-                console.print("[%] DESBLOQUEANDO ROUPAS MASCULINAS...", end="")
+            elif service == 22:  # Unlock Male Clothing
+                console.print("[cyan][%] DESBLOQUEANDO ROUPAS MASCULINAS: [/cyan]", end="")
+
                 if cpm.unlock_equipments_male():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Roupas desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear roupas!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 23:  # Desbloquear Roupas Femininas
-                console.print("[%] DESBLOQUEANDO ROUPAS FEMININAS...", end="")
+
+            elif service == 23:  # Unlock Female Clothing
+                console.print("[cyan][%] DESBLOQUEANDO ROUPAS FEMININAS: [/cyan]", end="")
+
                 if cpm.unlock_equipments_female():
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Roupas desbloqueadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao desbloquear roupas!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red]TENTE NOVAMENTE.[/red]")
                     sleep(2)
+                    continue
 
-            elif service == 24:  # Alterar Corridas Ganhas
-                print(Colorate.Horizontal(Colors.rainbow, '[?] QUANTIDADE DE CORRIDAS GANHAS:'))
-                amount = IntPrompt.ask("[?] QUANTIDADE", min=0, max=999999999)
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_wins(amount):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Corridas ganhas atualizadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
-                else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao atualizar!'))
-                    sleep(2)
+            elif service == 24:  # Change Races Wins
+                console.print("[yellow][!] INSIRA A QUANTIDADE DE CORRIDAS GANHAS[/yellow]")
+                amount = IntPrompt.ask("[white][?] INSIRA AQUI[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
 
-            elif service == 25:  # Alterar Corridas Perdidas
-                print(Colorate.Horizontal(Colors.rainbow, '[?] QUANTIDADE DE CORRIDAS PERDIDAS:'))
-                amount = IntPrompt.ask("[?] QUANTIDADE", min=0, max=999999999)
-                
-                console.print("[%] PROCESSANDO...", end="")
-                if cpm.set_player_loses(amount):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Corridas perdidas atualizadas!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                if amount > 0 and amount <= 999999999999999999999999999:
+                    if cpm.set_player_wins(amount):
+                        console.print("[bold green]SUCESSO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y":
+                            console.print(f"[white]VOLTEM SEMPRE: @{__CHANNEL_USERNAME__}.[/white]")
+                        else:
+                            continue
+                    else:
+                        console.print("[bold red]FALHA.[/bold red]")
+                        console.print("[red]TENTE NOVAMENTE.[/red]")
+                        sleep(2)
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao atualizar!'))
+                    console.print("[bold red]FALHA.[/bold red]")
+                    console.print("[red][!] USE VALORES VÁLIDOS.[/red]")
                     sleep(2)
-            elif service == 26:  # Clonar conta
-                print(Colorate.Horizontal(Colors.rainbow, '[!] O EMAIL DE DESTINO DEVE SER UMA CONTA EXISTENTE (CRIADA NA OPÇÃO 9)'))
-                to_email = prompt_valid_value("[?] EMAIL DA CONTA DESTINO", "Email")
-                to_password = prompt_valid_value("[?] SENHA DA CONTA DESTINO", "Senha", password=True)
-                
-                console.print("[%] CLONANDO CONTA...", end="")
+                    continue
+
+            elif service == 25:  # Change Races Loses
+                console.print("[yellow][!] INSIRA A QUANTIDADE DE CORRIDAS PERDIDAS[/yellow]")
+                amount = IntPrompt.ask("[white][?] INSIRA AQUI[/white]")
+                console.print("[cyan][%] SALVANDO DADOS: [/cyan]", end="")
+
+                if amount > 0 and amount <= 999999999999999999999:
+                    if cpm.set_player_loses(amount):
+                        console.print("[bold green]BOA PARÇA, CONCLUÍDO[/bold green]")
+                        console.print("[white]======================================[/white]")
+                        answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                        choices=["y", "n"], default="n")
+                        if answ == "y":
+                            console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                        else:
+                            continue
+                    else:
+                        console.print("[bold red]VACILOU HEIN[/bold red]")
+                        console.print("[red][!] COLOCA OS VALORES CERTOS PARÇA[/red]")
+                        sleep(2)
+                        continue
+                else:
+                    console.print("[bold red]VACILOU HEIN[/bold red]")
+                    console.print("[red][!] COLOCA OS VALORES CERTOS PARÇA[/red]")
+                    sleep(2)
+                    continue
+
+            elif service == 26:  # Clone Account
+                console.print("[yellow][!] ADICIONE O EMAIL PARA CLONAR A CONTA NELE (OBRIGATÓRIO: SAIR DAS CONTAS ANTES!)[/yellow]")
+                to_email = prompt_valid_value("[white][?] EMAIL DA CONTA[/white]", "Email", password=False)
+                to_password = prompt_valid_value("[white][?] SENHA DA CONTA[/white]", "Password", password=True)
+                console.print("[cyan][%] CLONANDO SUA CONTA: [/cyan]", end="")
+
                 if cpm.account_clone(to_email, to_password):
-                    print(Colorate.Horizontal(Colors.rainbow, 'SUCESSO: Conta clonada!'))
-                    if Prompt.ask("[?] SAIR? (Y/N)", choices=["y", "n"], default="n") == "y":
-                        break
+                    console.print("[bold green]SUCESSO[/bold green]")
+                    console.print("[white]======================================[/white]")
+                    answ = Prompt.ask("[white][?] DESEJA SAIR? USE Y PARA SIM E N PARA NÃO[/white]", 
+                                    choices=["y", "n"], default="n")
+                    if answ == "y":
+                        console.print(f"[white]VOLTE SEMPRE....: @{__CHANNEL_USERNAME__}.[/white]")
+                    else:
+                        continue
                 else:
-                    print(Colorate.Horizontal(Colors.rainbow, 'ERRO: Falha ao clonar conta!'))
+                    console.print("[bold red]VACILOU HEIN[/bold red]")
+                    console.print("[red][!] USE OS DADOS CORRETOS PARÇA[/red]")
                     sleep(2)
-        
-        # Sai do loop principal após sair do menu
+                    continue
+            else: continue
+            break
         break
